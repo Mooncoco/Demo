@@ -39,6 +39,11 @@ public class SearchResult extends Activity
 		lvBookAdapter = new ListViewBookAdapter(this, lvBookData, R.layout.search_list_item);
 	}
 	
+	private void initBookListData()
+	{
+		
+	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{

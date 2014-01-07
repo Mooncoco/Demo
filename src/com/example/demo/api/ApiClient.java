@@ -32,21 +32,30 @@ public class ApiClient
 		HttpClient.get(id, null, new JsonHttpResponseHandler()
 		{
 			@Override
-			public void onSuccess(JSONObject arg0)
+			public void onSuccess(JSONObject jsonObj)
 			{
-				super.onSuccess(arg0);
+				super.onSuccess(jsonObj);
+				System.out.println("android-async-http::onSuccess!!!");
+			}
+			
+			@Override
+			public void onFailure(Throwable throwable)
+			{
+				System.out.println("android-async-http::onfailure!!!");
 			}
 
 			@Override
 			public void onFinish()
 			{
 				super.onFinish();
+				System.out.println("android-async-http::onFinish!!!");
 			}
 
 			@Override
 			public void onStart()
 			{
 				super.onStart();
+				System.out.println("android-async-http::onStart!!!");
 			}
 			
 		});
@@ -99,7 +108,7 @@ public class ApiClient
 			}
 
 			@Override
-			public void onFailure(Throwable arg0)
+			public void onFailure(Throwable throwable)
 			{
 				System.out.println("android-asyn-http::onfailure!!!");
 			}
