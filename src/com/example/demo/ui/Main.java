@@ -2,12 +2,14 @@ package com.example.demo.ui;
 
 import com.example.demo.R;
 import com.example.demo.api.ApiClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
 
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -16,17 +18,27 @@ import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
 import android.widget.Toast;
 
+/**
+ * 应用程序首页
+ * @author yufeilong
+ */
 public class Main extends Activity
 {
+	private JsonHttpResponseHandler  recommendHandler;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-		ActionBar actionBar = this.getActionBar();  
-		actionBar.setDisplayHomeAsUpEnabled(false);  
+		
+		this.initView();
+		//this.loadData(tag, start, count);
 	}
 	
+	/**
+	 * 创建	actionbar item
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
@@ -43,7 +55,7 @@ public class Main extends Activity
 				InputMethodManager imm = (InputMethodManager) getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
 				imm.hideSoftInputFromWindow(searchView.getWindowToken(), 0);
 				
-				loadBookData(q, 0, 5);;
+				loadData(q, 0, 5);;
 				
 				Intent intent = new Intent(Main.this, SearchResult.class);
 				startActivity(intent);
@@ -67,6 +79,10 @@ public class Main extends Activity
 	    return super.onCreateOptionsMenu(menu);
 	}
 	
+	/**
+	 * 监听actionbar上item被选中后的事件
+	 * @param item
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) 
 	{
@@ -93,8 +109,24 @@ public class Main extends Activity
 	    }
 	}
 	
-	private static void loadBookData(String q, int start, int count)
+	private void initView()
 	{
-		ApiClient.getBookList(q, start, count);
+		/* 创建actionbar */
+		ActionBar actionBar = this.getActionBar();  
+		actionBar.setDisplayHomeAsUpEnabled(false);  
+	}
+	
+	private void loadData(String tag, int start, int count)
+	{
+		ApiClient.getRecommendBook(tag, start, count, recommendHandler);
+	}
+	
+	/**
+	 * 监听返回--是否退出程序
+	 */
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) 
+	{
+		return false;
 	}
 }

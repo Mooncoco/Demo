@@ -25,50 +25,28 @@ public class ApiClient
 	/**
 	 * 获取图书详细信息
 	 * @param id
-	 * @return book
 	 */
-	public static Book getBookDetail(String id)
+	public static void getBookDetail(String id, JsonHttpResponseHandler jsonHandler)
 	{	
-		HttpClient.get(id, null, new JsonHttpResponseHandler()
-		{
-			@Override
-			public void onSuccess(JSONObject jsonObj)
-			{
-				super.onSuccess(jsonObj);
-				System.out.println("android-async-http::onSuccess!!!");
-			}
-			
-			@Override
-			public void onFailure(Throwable throwable)
-			{
-				System.out.println("android-async-http::onfailure!!!");
-			}
-
-			@Override
-			public void onFinish()
-			{
-				super.onFinish();
-				System.out.println("android-async-http::onFinish!!!");
-			}
-
-			@Override
-			public void onStart()
-			{
-				super.onStart();
-				System.out.println("android-async-http::onStart!!!");
-			}
-			
-		});
-		return Book.parse();
+		HttpClient.get(id, null, jsonHandler);
+	}
+	
+	/**
+	 * 获取推荐图书
+	 * @param tag
+	 * @param jsonHandler
+	 */
+	public static void getRecommendBook(String tag, int start, int count, JsonHttpResponseHandler jsonHandler)
+	{
+		HttpClient.get(tag, null, jsonHandler);
 	}
 	
 	/**
 	 * 图书列表（搜索图书结果）
 	 * @param start
 	 * @param count
-	 * @return 图书列表
 	 */
-	public static BookList getBookList(String q, int start, int count)
+	public static void getBookList(String q, int start, int count, JsonHttpResponseHandler jsonHandler)
 	{
 		RequestParams params = new RequestParams();
 		
@@ -83,38 +61,6 @@ public class ApiClient
 			e.printStackTrace();
 		}
 		
-		HttpClient.get("search", params, new JsonHttpResponseHandler()
-		{
-
-			@Override
-			public void onFinish()
-			{
-				super.onFinish();
-				System.out.println("android-asyn-http::onfinish!!!");
-			}
-
-			@Override
-			public void onStart()
-			{
-				super.onStart();
-				System.out.println("android-asyn-http::onstart!!!");
-			}
-
-			@Override
-			public void onSuccess(JSONObject jsonObj)
-			{
-				super.onSuccess(jsonObj);
-				System.out.println("android-asyn-http::onfinish::jsonobject!!!");
-			}
-
-			@Override
-			public void onFailure(Throwable throwable)
-			{
-				System.out.println("android-asyn-http::onfailure!!!");
-			}
-			
-		});
-		
-		return BookList.parse();
+		HttpClient.get("search", params, jsonHandler);
 	}
 }

@@ -22,9 +22,6 @@ public class SearchResult extends Activity
 	
 	private List<Book> lvBookData = new ArrayList<Book>();
 	
-	private Handler lvBookHandler;
-	
-	private int lvBookSumData;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
@@ -32,6 +29,9 @@ public class SearchResult extends Activity
 		super.onCreate(savedInstanceState);
 		ActionBar actionBar = this.getActionBar();  
 		actionBar.setDisplayHomeAsUpEnabled(true);
+		
+		initBookListView();
+		initBookListData();
 	}
 	
 	private void initBookListView()
