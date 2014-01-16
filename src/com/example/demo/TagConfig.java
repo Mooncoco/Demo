@@ -3,12 +3,13 @@ package com.example.demo;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 public class TagConfig
 {
 	public static List<String> categoryList;
 	public static List<String> tagsList;
-	public static HashMap<String, List<String>> labelsMap;
+	public static HashMap<String, List<String>> tagsMap;
 	
 	private static String categorys[] = {"生活", "青春", "小说", "文学", "艺术","动漫", "旅游"};
 	
@@ -28,22 +29,48 @@ public class TagConfig
 	private static String travelTags[] = {"旅游随笔", "旅游地图", "自助游", "自然", "人文之旅", "民俗"
 			, "旅游实用外语", "国家", "境内", "境外", "导游"};
 	
-	public static String randomLabel()
+	/**
+	 * 随机产生标签
+	 * @return tag
+	 */
+	public static String randomTag()
 	{
-		String label = "";
+		String tag = "";
 
-		labelsMap.put(categorys[0], parseArrayToList(lifeTags));
-		labelsMap.put(categorys[1], parseArrayToList(youthTags));
-		labelsMap.put(categorys[2], parseArrayToList(novelTags));
-		labelsMap.put(categorys[3], parseArrayToList(literatureTags));
-		labelsMap.put(categorys[4], parseArrayToList(artTags));
-		labelsMap.put(categorys[5], parseArrayToList(cartoonTags));
-		labelsMap.put(categorys[6], parseArrayToList(travelTags));
+		initData();
 		
-		return label;
+		String catgory = categorys[gengrateRandomNumber(categorys.length, 0)];
+		
+		tag = tagsMap.get(catgory).get(gengrateRandomNumber(tagsMap.get(catgory).size(), 0));
+		
+		return tag;
 	}
 	
+	/**
+	 * 初始化标签数据
+	 */
+	private static void initData()
+	{
+		tagsMap.put(categorys[0], parseArrayToList(lifeTags));
+		tagsMap.put(categorys[1], parseArrayToList(youthTags));
+		tagsMap.put(categorys[2], parseArrayToList(novelTags));
+		tagsMap.put(categorys[3], parseArrayToList(literatureTags));
+		tagsMap.put(categorys[4], parseArrayToList(artTags));
+		tagsMap.put(categorys[5], parseArrayToList(cartoonTags));
+		tagsMap.put(categorys[6], parseArrayToList(travelTags));
+	}
 	
+	private static int gengrateRandomNumber(int max, int min)
+	{
+		Random random = new Random();
+		return random.nextInt(max - min) + min;
+	}
+	
+	/**
+	 * parse array to list
+	 * @param array
+	 * @return
+	 */
 	private static List<String> parseArrayToList(String[] array)
 	{
 		List<String> list = new ArrayList<String>();
