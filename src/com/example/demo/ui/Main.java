@@ -98,7 +98,7 @@ public class Main extends Activity
 	        {
 	            //composeMessage();
 	        	Toast.makeText(getApplicationContext(), "labels", Toast.LENGTH_SHORT).show();
-	        	Intent intent = new Intent(this, Labels.class);
+	        	Intent intent = new Intent(this, Tags.class);
 	        	startActivity(intent);
 	            return true;
 	        }

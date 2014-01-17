@@ -6,7 +6,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-public class Labels extends Activity 
+public class Tags extends Activity 
 {
 
 	@Override
